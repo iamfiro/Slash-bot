@@ -10,6 +10,7 @@ const alreadyGetDaily = new EmbedBuilder()
     .setColor('Red')
 
 async function handler(interaction: ChatInputCommandInteraction) {
+    await interaction.deferReply({ ephemeral: false });
     checkAvailableUserRegister(interaction).then(async function(result) {
         const t = (new Date());
         t.setHours(t.getHours() + 9)
@@ -17,15 +18,12 @@ async function handler(interaction: ChatInputCommandInteraction) {
 
         if(today === result?.lastUsedDailyCommand) {
         // if(false) {
-            await interaction.deferReply({ ephemeral: false });
             await interaction.editReply({embeds: [alreadyGetDaily]});
         } else {
-            await interaction.deferReply();
             const randomAmt = (Math.floor(Math.random() * (15000 - 11000 + 1)) + 11000) + (40 * (result?.dailyCommandCount || 0));
-            const emoji = client.emojis.cache.get(':bellslarge:');
             dailyMoney(interaction, randomAmt).then(async data => {
                 const GetDaily = new EmbedBuilder()
-                .setTitle('✅ 출석 체크가 완료 되었습니다')
+                .setTitle('✅ 출석 체크가 완료 되었다냥!')
                 .setDescription(`**${numberWithCommas(randomAmt)}** x 자금 <:economy_buget:1144857326264786976>\n **10** x 마일리지 <:economy_mile:1150026140065476668>`)
                 .setColor('Green')
                 .setTimestamp()
