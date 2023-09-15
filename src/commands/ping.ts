@@ -1,7 +1,7 @@
 import { ChatInputCommandInteraction, SlashCommandBuilder } from "discord.js";
 
 async function handler(interaction: ChatInputCommandInteraction) {
-    await interaction.reply("Pongs!")
+    await interaction.reply("Pong!")
 }
 
 export default {
