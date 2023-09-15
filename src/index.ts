@@ -6,7 +6,7 @@ import ping from './commands/ping';
 import { client, rest } from './lib/bot';
 import { EmbedBuilder, Events, Routes, TextChannel } from 'discord.js';
 import leaderboard from './commands/economy/leaderboard';
-import shop from './commands/mile/shop';
+import shop from './commands/shop';
 import profile from './commands/profile';
 
 client.on('ready', async() => {
@@ -35,7 +35,7 @@ client.on('interactionCreate', async interaction => {
             case '도박': gambling.handler(interaction); break;
             case '송금': transferBalance.handler(interaction); break;
             case '랭킹': leaderboard.handler(interaction); break;
-            case '마일리지상점': shop.handler(interaction); break;
+            case '상점': shop.handler(interaction); break;
             case '프로필': profile.handler(interaction); break;
         }
     } else if (interaction.isButton()) {
