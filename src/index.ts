@@ -3,7 +3,7 @@ import "dotenv/config";
 import { existsSync, lstatSync, mkdirSync, readdirSync } from "fs";
 import { join } from "path";
 
-const IGNORE_FILES = [".DS_Store", ".env"];
+const IGNORE_FILES = [".DS_Store", ".env", "README.md"];
 
 const octabot = new Octa(
   {
