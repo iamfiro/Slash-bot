@@ -5,6 +5,10 @@ import { join } from "path";
 
 const IGNORE_FILES = [".DS_Store", ".env", "README.md"];
 
+process.on("uncaughtException", function (err) {
+  console.log("Caught exception: ", err);
+});
+
 const octabot = new Octa(
   {
     token: process.env.TOKEN!,
