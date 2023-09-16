@@ -28,14 +28,18 @@ const command: Command = {
       return await interaction.reply("❌ 권한이 없습니다");
 
     const nullableOption = interaction.options.get("개수", false)?.value || 100;
+    let removed = 0;
     // remove message
-    if (interaction.channel.isTextBased())
-      await (interaction.channel as any as TextChannel).bulkDelete(
-        Number(nullableOption)
+    if (interaction.channel.isTextBased()) {
+      const col = await (interaction.channel as any as TextChannel).bulkDelete(
+        Number(nullableOption),
+        true
       );
+      removed = [...col.keys()].length;
+    }
 
     return await interaction.reply({
-      content: `✅ ${nullableOption}개의 메세지를 삭제했습니다`,
+      content: `✅ ${removed}개의 메세지를 삭제했습니다`,
       ephemeral: true,
     });
   },
