@@ -1,0 +1,16 @@
+{
+  "devDependencies": {
+    "@types/node": "^20.6.2",
+    "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "octajs": "^1.0.7-1"
+  },
+  "scripts": {
+    "build": "npx tsc",
+    "start": "node .",
+    "dev": "nodemon --watch src --ext ts,mts,cts,js,json --ignore dist --exec \"npx tsc && node .\""
+  },
+  "main": "dist/index.js"
+}
