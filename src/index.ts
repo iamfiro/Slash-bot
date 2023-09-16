@@ -3,8 +3,7 @@ import "dotenv/config";
 
 const bot = new Octa(
   {
-    token:
-      "MTEzNDQ4ODMxMTE3NjY0MjYyMQ.GNqnPv.r0fqZaZQI6acaU25X4lYvoR8EhpJaLxMPHkT6g",
+    token: process.env.TOKEN!,
     showLogo: false,
     catchError: true,
   },
