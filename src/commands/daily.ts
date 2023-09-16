@@ -56,3 +56,5 @@ const command: Command = {
     await interaction.editReply({ embeds: [GetDaily] });
   },
 };
+
+export default command;
