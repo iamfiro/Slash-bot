@@ -171,10 +171,10 @@ magic-bytes.js@^1.0.15:
   resolved "https://registry.yarnpkg.com/magic-bytes.js/-/magic-bytes.js-1.0.17.tgz#6265d568df98c02b523c0defdd18b86cb2cae883"
   integrity sha512-PEDpPzHpKe5AxkVmQrNPHFRvPN2ELkkj3eIg4IZO9JdhBiAY3aU53lgYXs9j8B7lpza+QiW0UA4QHCH7EskSeg==
 
-octajs@^1.0.7-1:
-  version "1.0.7-1"
-  resolved "https://registry.yarnpkg.com/octajs/-/octajs-1.0.7-1.tgz#9837d3cb4e5667b344dd66bb664ba8a0247771f1"
-  integrity sha512-+oYMVttigXNvLgPf6hcfBedLNB4YKWF/vuYIIEopDT/zVR0y7xEfWHZK4ObvgmO6Q0duJrn6S8obGf6xs0QkNw==
+octajs@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/octajs/-/octajs-1.0.8.tgz#10eaf619e551d6acbbb49c872e405533b1fb15b7"
+  integrity sha512-RI2bMwnp+OkieVIv5ebDF6Mi4xsMuJi0qHShGX5/NRZdnaczeCC/FyvjH3IilPuYBu0r8t/TwkB+KNwD6tuInw==
   dependencies:
     discord.js "^14.11.0"
 

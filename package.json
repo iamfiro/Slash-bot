@@ -7,7 +7,7 @@
   "dependencies": {
     "@prisma/client": "5.3.1",
     "dotenv": "^16.3.1",
-    "octajs": "^1.0.7-1"
+    "octajs": "^1.0.8"
   },
   "scripts": {
     "build": "npx tsc",
