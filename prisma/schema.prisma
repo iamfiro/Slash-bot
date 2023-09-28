@@ -9,20 +9,5 @@ datasource db {
 
 model User {
   userId String @unique
-  Economy Economy?
   userName String @default("")
-}
-
-model Economy {
-  userName String @default("")
-  userId String @unique
-  user User @relation(fields: [userId], references: [userId])
-  balance BigInt @default(0)
-  mile Int @default(0)
-  lastUsedDailyCommand String
-  dailyCommandCount Int @default(0)
-  betWin Int @default(0)
-  betFailed Int @default(0)
-  betWinValue BigInt @default(0)
-  betFailedValue BigInt @default(0)
 }

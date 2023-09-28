@@ -1,10 +1,10 @@
 import { CommandInteraction } from "discord.js";
 import prisma from "../lib/prisma";
-import { Economy, User } from "@prisma/client";
+import { User } from "@prisma/client";
 
 export const checkAvailableUserRegister = async (
   interaction: CommandInteraction
-): Promise<Economy | null> => {
+): Promise<User | null> => {
   const exists = await prisma.user.findFirst({
     where: { userId: interaction.user.id },
   });
@@ -16,24 +16,15 @@ export const checkAvailableUserRegister = async (
       data: {
         userId: interaction.user.id,
         userName: interaction.user.username,
-        Economy: {
-          create: {
-            lastUsedDailyCommand: `${t.getFullYear()}${t.getMonth()}${t.getDate()}`,
-            dailyCommandCount: 0,
-            userName: interaction.user.username,
-          },
-        },
       },
     });
+    return data
   }
-  const data = await prisma.economy.findFirst({
-    where: { userId: interaction.user.id },
-  });
-  return data;
+  return exists;
 };
 
-export const getUserById = async (userId: string): Promise<Economy | null> => {
-  const data = await prisma.economy.findUnique({
+export const getUserById = async (userId: string): Promise<User | null> => {
+  const data = await prisma.user.findUnique({
     where: {
       userId,
     },
