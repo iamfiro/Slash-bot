@@ -3,7 +3,7 @@ import { Command } from "octajs/dist/package/command";
 
 const command: Command = {
   name: "밴",
-  description: "사용자를 밴합니다.",
+  description: "[ 🔒 ] 사용자를 밴합니다.",
   options: {
     유저: {
         type: "User",

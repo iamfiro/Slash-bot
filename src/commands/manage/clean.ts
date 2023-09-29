@@ -3,7 +3,7 @@ import { Command } from "octajs/dist/package/command";
 
 const command: Command = {
   name: "청소",
-  description: "채팅을 청소합니다",
+  description: "[ 🔒 ] 채팅을 청소합니다",
   options: {
     개수: {
       type: "Integer",
