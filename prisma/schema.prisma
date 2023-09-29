@@ -11,3 +11,15 @@ model User {
   userId String @unique
   userName String @default("")
 }
+
+model Warn {
+  id Int @default(autoincrement()) @unique
+  userId String
+  reason String?
+}
+
+model BadWord {
+  id Int @default(autoincrement()) @unique
+  userId String
+  message String?
+}
