@@ -3,13 +3,23 @@ import { check } from "korcen";
 import prisma from "../../lib/prisma";
 import { EmbedBuilder, TextChannel } from "discord.js";
 
+const urlRegex = /(www|http:|https:)+[^\s]+[\w]/;
+
+const customForbiddenWords = ['시새발']
+
 const event: EventListener<"messageCreate"> = {
   type: "messageCreate",
   async listener(bot, message) {
     if(message.author.bot) return;
     if(message.channelId === '1156160773316423741') return; // 무정부 챗 감지 X
-    const c = check(message.content);
+    var c = check(message.content);
+    if(!c) {
+        customForbiddenWords.forEach((value, index, array)=>{
+            message.content.search(value) === -1 ? null : c = true;
+        })
+    }
     if(c) {
+        if(urlRegex.test(message.content)) return;
         if(message.content.includes('analytics')) return;
         if(message.content.includes('애널리틱스')) return;
         const warn = new EmbedBuilder()
