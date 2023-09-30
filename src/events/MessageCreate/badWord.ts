@@ -47,7 +47,7 @@ const event: EventListener<"messageCreate"> = {
                     .setTitle('🚨 제재 내역 : 제재 적용')
                     .setAuthor({name: '제재 1회'})
                     .setDescription('SLASH 커뮤니티에서 자주 경고를 받으신 걸로 보입니다\n**타임아웃이 지급되었습니다** \n\n좋은 커뮤니티 조성을 위해 비속어를 사용을 자제해주세요!')
-                    .setFields({ name: '감지된 메시지', value: `\`\`\`${message.content}\`\`\``}, { name: '제재 내역', value: '**타임아웃 30분**'})
+                    .setFields({ name: '감지된 메시지', value: `\`\`\`${message.content}\`\`\``}, { name: '제재 내역', value: '**타임아웃 3분**'})
                     .setFooter({ text: '🚨 SLASH 커뮤니티 제공' })
                     .setTimestamp();
                 message.guild?.members.cache.get(message.author.id)?.timeout(60 * 1000 * 3).catch(() => {
