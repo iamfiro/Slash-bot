@@ -10,6 +10,8 @@ const event: EventListener<"messageCreate"> = {
     if(message.channelId === '1156160773316423741') return; // 무정부 챗 감지 X
     const c = check(message.content);
     if(c) {
+        if(message.content.includes('analytics')) return;
+        if(message.content.includes('애널리틱스')) return;
         const warn = new EmbedBuilder()
             .setColor('Red')
             .setTitle('🚨 비속어 감지')
@@ -48,7 +50,7 @@ const event: EventListener<"messageCreate"> = {
                     .setFields({ name: '감지된 메시지', value: `\`\`\`${message.content}\`\`\``}, { name: '제재 내역', value: '**타임아웃 30분**'})
                     .setFooter({ text: '🚨 SLASH 커뮤니티 제공' })
                     .setTimestamp();
-                message.guild?.members.cache.get(message.author.id)?.timeout(60 * 30).catch(() => {
+                message.guild?.members.cache.get(message.author.id)?.timeout(60 * 1000 * 3).catch(() => {
                     console.log(`[ ❌ ] 타임아웃 적용중 오류가 발생했습니다 | 유저: ${message.author.displayName}(${message.author.id})`)
                 });
                 message.author.send({ embeds: [warn]})

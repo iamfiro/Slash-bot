@@ -2,7 +2,7 @@ import Octa, { ALL_INTENTS } from "octajs";
 import "dotenv/config";
 import { existsSync, lstatSync, mkdirSync, readdirSync } from "fs";
 import { join } from "path";
-
+import { ActivityType } from "discord.js";
 const IGNORE_FILES = [".DS_Store", ".env", "README.md"];
 
 process.on("uncaughtException", function (err) {
@@ -91,4 +91,14 @@ loadCommand()
     setInterval(() => {
       console.log(`알림 | 인스턴스 ${InstanceID}번 실행중`)
     }, 30000)
+});
+
+octabot.runRawJob((bot) => {
+  bot.user?.setPresence({ 
+      activities: [{ 
+          name: '0.2.0-beta', 
+          type: ActivityType.Playing, 
+      }], 
+      status: 'online' 
   });
+});
