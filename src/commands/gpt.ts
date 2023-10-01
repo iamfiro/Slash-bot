@@ -31,7 +31,7 @@ const GPTCommand: Command = {
         }
     }).then(async (data: any) => {
         var msg = (data.data.choices[0].message.content)
-        await interaction.editReply(`${msg}\n(${data.data.model})`)
+        await interaction.editReply(`\`\`\`${msg}\`\`\`\n(${data.data.model})`)
     })
   },
 };
