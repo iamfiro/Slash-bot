@@ -24,14 +24,18 @@ const GPTCommand: Command = {
             "key": process.env.GPT_TOKEN,
             "messages": [
                 {
+                    "role": "system", 
+                    "content": `You are a helpful assistant, you must speak in 500 characters or less and If there are important words, surround them with two asterisks (e.g. Valorant is an FPS game from **Riot Games**) and When using strikethrough, surround the message with ~~`
+                },
+                {
                     "role": "user",
-                    "content": `${topic}. 단 500자가 넘지 않게 말해줘`
+                    "content": `${topic}`
                 }
             ]
         }
     }).then(async (data: any) => {
         var msg = (data.data.choices[0].message.content)
-        await interaction.editReply(`\`\`\`${msg}\`\`\`\n(${data.data.model})`)
+        await interaction.editReply(`${msg}\n||(${data.data.model})||`)
     })
   },
 };
