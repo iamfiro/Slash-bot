@@ -12,7 +12,7 @@ const eventListener: EventListener<"guildMemberAdd"> = {
       .setThumbnail(member.user.avatarURL())
       .setTimestamp(member.joinedTimestamp);
     const message = (
-      bot.channels.cache.get("1081840683511447602") as TextChannel
+      bot.channels.cache.get("1156162521833668769") as TextChannel
     ).send({ embeds: [welcomeEmbed] });
     (await message).react("<:blobcatpop:1144846825203970110>");
     const role = member.guild.roles.cache.find(
