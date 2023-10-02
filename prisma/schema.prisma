@@ -10,6 +10,16 @@ datasource db {
 model User {
   userId String @unique
   userName String @default("")
+  economy Economy?
+}
+
+model Economy {
+  userId String @unique
+  userName String @default("")
+  user User @relation(fields: [userId], references: [userId])
+  balance BigInt @default(0)
+  mile Int @default(0)
+  lastUsedDailyCommand String
 }
 
 model Warn {
