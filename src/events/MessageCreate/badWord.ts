@@ -66,6 +66,7 @@ const forbiddenWords = [
 const event: EventListener<"messageCreate"> = {
   type: "messageCreate",
   async listener(bot, message) {
+    if(process.env.NODE_ENV === 'development') return;
     if(message.author.bot) return;
     if(message.channelId === '1156160773316423741') return; // 무정부 챗 감지 X
 

@@ -1,21 +1,23 @@
 generator client {
   provider = "prisma-client-js"
+  relationMode = "prisma"
 }
 
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model User {
   userId String @unique
+  Economy Economy?
   userName String @default("")
-  economy Economy?
 }
 
 model Economy {
-  userId String @unique
   userName String @default("")
+  userId String @unique
   user User @relation(fields: [userId], references: [userId])
   balance BigInt @default(0)
   mile Int @default(0)
