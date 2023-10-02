@@ -5,12 +5,20 @@ const PingCommand: Command = {
   name: "ping",
   description: "You say ping, I say pong!",
   async executes(_, interaction) {
+    // Defer the reply to avoid the client from thinking the interaction has timed out.
     await interaction.deferReply();
+
+    // Fetch the reply to measure the API latency.
     const reply = await interaction.fetchReply();
+
+    // Get the timestamps of the reply and the interaction.
     const { createdTimestamp: replyTimestamp } = reply;
     const { createdTimestamp: interactionTimestamp } = interaction;
+
+    // Calculate the latency by subtracting the reply's timestamp from the interaction's timestamp.
     const ping = replyTimestamp - interactionTimestamp;
 
+    // Edit the interaction's reply with the ping.
     await interaction.editReply({
       embeds: [
         new EmbedBuilder()

@@ -3,10 +3,10 @@ import axios from "axios";
 
 const GPTCommand: Command = {
   name: "gpt",
-  description: "GPT가 응답해줘요!",
+  description: "Get response from GPT!",
   options: {
-    메시지: {
-      description: "메시지",
+    message: {
+      description: "message",
       required: true,
       minLength: 0,
       maxLength: 100,
@@ -14,8 +14,8 @@ const GPTCommand: Command = {
     },
   },
   async executes(bot, interaction) {
-    const topic = interaction.options.getString('메시지');
-    if (!topic) return interaction.editReply('❌ 메시지는 비워둘수 없습니다');
+    const topic = interaction.options.getString('message');
+    if (!topic) return interaction.editReply('❌ message cannot be empty');
     const { data } = await axios.post('http://api.onhost.kr:26120/create', {
       key: process.env.GPT_TOKEN,
       messages: [
