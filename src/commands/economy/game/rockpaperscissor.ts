@@ -4,6 +4,7 @@ import { DecreseBalance, IncreseBalance } from "../../../db/economy";
 import { checkAvailableUser } from "../../../db/user";
 import { APIResponseType } from "../../../types/db";
 import { EmbedBotError, EmbedNotRegister } from "../../../lib/discord";
+import { onlyNumberRegex } from "../../../lib/regex";
 
 const PingCommand: Command = {
     name: "가위바위보",
@@ -36,6 +37,7 @@ const PingCommand: Command = {
     },
     async executes(_, interaction) {
         await interaction.deferReply();
+        if(!onlyNumberRegex.test(interaction.options.getInteger("베팅금액")?.toString() || "")) return await interaction.editReply("❌ 베팅금액은 숫자만 입력 가능합니다.")
         if(interaction.options.getInteger("베팅금액") as number < 1000) return await interaction.editReply("❌ 최소 베팅금액은 1,000원입니다.");
         const isRegister = checkAvailableUser(interaction.user.id)
         if ((await isRegister).status === APIResponseType.USER_NOT_REGISTERED) return await interaction.editReply({ embeds: [EmbedNotRegister] });
