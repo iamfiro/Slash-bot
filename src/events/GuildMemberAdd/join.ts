@@ -4,6 +4,7 @@ import { EventListener } from "octajs";
 const eventListener: EventListener<"guildMemberAdd"> = {
   type: "guildMemberAdd",
   async listener(bot, member) {
+    if(process.env.NODE_ENV === 'development') return;
     // Send welcome message
     const welcomeEmbed = new EmbedBuilder()
       .setTitle("📈 입국 로그")
