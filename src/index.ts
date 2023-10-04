@@ -5,6 +5,8 @@ import { join } from "path";
 import { ActivityType } from "discord.js";
 const IGNORE_FILES = [".DS_Store", ".env", "README.md"];
 
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
 process.on("uncaughtException", function (err) {
   console.log("Caught exception: ", err);
 });

@@ -1,6 +1,8 @@
+import { getTodayStringDate } from "../lib/date";
 import prisma from "../lib/prisma";
+import { APIResponse, APIResponseType } from "../types/db";
 
-export const DailyBalance = async (userId: string, amount: number): Promise<boolean> => {
+export const DailyBalance = async (userId: string, amount: number): Promise<APIResponse> => {
     const date = new Date()
     return await prisma.user.update({ 
         where: { 
@@ -8,7 +10,7 @@ export const DailyBalance = async (userId: string, amount: number): Promise<bool
         }, data: { 
             Economy: {
                 update: {
-                    lastUsedDailyCommand: `${date.getFullYear()}${date.getMonth()}${date.getDate()}`,
+                    lastUsedDailyCommand: getTodayStringDate(),
                     balance: {
                         increment: amount
                     }
@@ -16,13 +18,13 @@ export const DailyBalance = async (userId: string, amount: number): Promise<bool
             }
         } 
     }).then(() => {
-        return true
+        return { status: APIResponseType.DATA_UPDATED }
     }).catch((e) => {
-        return false
+        return { status: APIResponseType.DATA_NOT_UPDATED }
     });
 }
 
-export const IncreseBalance = async (userId: string, amount: number): Promise<boolean> => {
+export const IncreseBalance = async (userId: string, amount: number): Promise<APIResponse> => {
     return await prisma.user.update({ 
         where: { 
             userId 
@@ -36,13 +38,13 @@ export const IncreseBalance = async (userId: string, amount: number): Promise<bo
             }
         } 
     }).then(() => {
-        return true
+        return { status: APIResponseType.DATA_UPDATED }
     }).catch((e) => {
-        return false
+        return { status: APIResponseType.DATA_NOT_UPDATED }
     });
 }
 
-export const DecreseBalance = async (userId: string, amount: number): Promise<boolean> => {
+export const DecreseBalance = async (userId: string, amount: number): Promise<APIResponse> => {
     return await prisma.user.update({ 
         where: { 
             userId 
@@ -56,8 +58,8 @@ export const DecreseBalance = async (userId: string, amount: number): Promise<bo
             }
         } 
     }).then(() => {
-        return true
+        return { status: APIResponseType.DATA_UPDATED }
     }).catch((e) => {
-        return false
+        return { status: APIResponseType.DATA_NOT_UPDATED }
     });
 }
