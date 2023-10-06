@@ -30,21 +30,59 @@ const PingCommand: Command = {
     },
     async executes(bot, interaction) {
         await interaction.deferReply();
-        if(!onlyNumberRegex.test(interaction.options.getInteger("금액")?.toString() || "")) return await interaction.editReply("❌ 송금 금액은 숫자만 입력 가능합니다.")
-        if(interaction.options.getInteger("금액") as number < 1000) return await interaction.editReply("❌ 최소 송금 금액은 1,000원입니다.");
+        if(!onlyNumberRegex.test(interaction.options.getInteger("금액")?.toString() || "")) return await interaction.editReply({
+            embeds: [
+                new EmbedBuilder()
+                .setTitle("❌ 송금 금액은 숫자만 입력 가능합니다.")
+                .setColor('Red')
+                .setTimestamp()
+            ]
+        })
+        if(interaction.options.getInteger("금액") as number < 1000) return await interaction.editReply({
+            embeds: [
+                new EmbedBuilder()
+                .setTitle("❌ 최소 송금 금액은 1,000원입니다.")
+                .setColor('Red')
+                .setTimestamp()
+            ]
+        });
 
         const isRegister = checkAvailableUser(interaction.user.id)
         if ((await isRegister).status === APIResponseType.USER_NOT_REGISTERED) return await interaction.editReply({ embeds: [EmbedNotRegister] });
 
         const user = await bot.users.fetch(interaction.options.getUser("유저") || '');
+
+        const isRecipientRegister = checkAvailableUser(user.id)
+        if((await isRecipientRegister).status === APIResponseType.USER_NOT_REGISTERED) return await interaction.editReply({
+            embeds: [
+                new EmbedBuilder()
+                .setTitle('❌ 상대방이 가입 되어있지 않습니다.')
+                .setColor('Red')
+                .setTimestamp()
+            ]
+        });
+
         if(user.bot) return await interaction.editReply("❌ 음 로봇은 서비스 접근 금지라네요... (끄적)");
-        if(interaction.user.id === user.id) return await interaction.editReply("❌ 자기 자신한테 송금할 수 없습니다. (저축 하시는건가..?)");
+        if(interaction.user.id === user.id) return await interaction.editReply({
+            embeds: [
+                new EmbedBuilder()
+                .setTitle('❌ 자기 자신한테 송금할 수 없습니다. (저축 하시는건가..?)')
+                .setColor('Red')
+                .setTimestamp()
+            ]
+        });
         
         await interaction.editReply("🔍 송금중입니다...");
         
         const userBalance = getUserBalance(interaction.user.id);
-        if(interaction.options.getInteger("금액") as number > ((await userBalance).data.balance as number)) return await interaction.editReply("❌ 송금 금액이 보유 금액보다 많습니다.");
-        if((await userBalance).status === APIResponseType.DATA_NOT_FOUND) return await interaction.editReply("❌ 상대방이 가입 되어있지 않은 유저입니다.");
+        if(interaction.options.getInteger("금액") as number > ((await userBalance).data.balance as number)) return await interaction.editReply({
+            embeds: [
+                new EmbedBuilder()
+                .setTitle("❌ 송금 금액이 보유 금액보다 많습니다.")
+                .setColor('Red')
+                .setTimestamp()
+            ], message: ''
+        });
 
         const transferBalance = caculateFee(interaction.options.getInteger("금액") || 0, isHaveDonatorRole(interaction));
 
@@ -57,12 +95,12 @@ const PingCommand: Command = {
                         .setColor(0x0099FF)
                         .setTitle(`💸 송금이 완료되었습니다!`)
                         .setTimestamp(Date.now())
-                        .addFields(
-                            { name: '송금금액 (수수료 포함)', value: codeBlock('diff',`${numberWithCommas(transferBalance)}원`) },
-                            { name: '잔액', value: codeBlock('diff',`${numberWithCommas(Number((await userBalance).data.balance) - Number(interaction.options.getInteger('금액')))}원`) },
-                            { name: 'ㅤ', value: `${userMention(interaction.user.id)} -> ${userMention(user.id)}` },
-                        )
-                        .setFooter({ text: await isHaveDonatorRole(interaction) ? '수수료 없음' : '수수료 10%'})
+                        .setDescription(`\`보내는 사람\` : ${userMention(interaction.user.id)}\n\`받는 사람\` : ${userMention(user.id)}\n\`송금 금액\` : ${numberWithCommas(Number(interaction.options.getInteger("금액")))}원\n\`수수료\` : ${numberWithCommas(interaction.options.getInteger("금액") as number - transferBalance)}원\n\`잔액\` : ${numberWithCommas(Number((await userBalance).data.balance) - Number(interaction.options.getInteger('금액')))}원`)
+                        // .addFields(
+                        //     { name: '송금금액 (수수료 포함)', value: codeBlock('diff',`${numberWithCommas(transferBalance)}원`) },
+                        //     { name: '잔액', value: codeBlock('diff',`${numberWithCommas(Number((await userBalance).data.balance) - Number(interaction.options.getInteger('금액')))}원`) },
+                        //     { name: 'ㅤ', value: `${userMention(interaction.user.id)} -> ${userMention(user.id)}` },
+                        // )
                 ], content: ''})
             }
         })
