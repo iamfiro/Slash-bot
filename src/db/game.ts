@@ -1,22 +1,22 @@
 import prisma from "../lib/prisma";
 import { APIResponse, APIResponseType } from "../types/db";
 
-export const transferMoney = async (userId: string, recipientId: string, principalBalance: number, transferBalance: number): Promise<APIResponse> => {
+export const RockPaperScissorMoney = async (winUserId: string, loseUserId: string, transferBalance: number): Promise<APIResponse> => {
     try {
         await prisma.economy.update({
             where: {
-                userId
+                userId: loseUserId,
             }, 
             data: {
                 balance: {
-                    decrement: BigInt(principalBalance)
+                    decrement: BigInt(transferBalance)
                 }
             }
         })
     
         await prisma.economy.update({
             where: {
-                userId: recipientId
+                userId: winUserId
             },
             data: {
                 balance: {

@@ -96,11 +96,6 @@ const PingCommand: Command = {
                         .setTitle(`💸 송금이 완료되었습니다!`)
                         .setTimestamp(Date.now())
                         .setDescription(`\`보내는 사람\` : ${userMention(interaction.user.id)}\n\`받는 사람\` : ${userMention(user.id)}\n\`송금 금액\` : ${numberWithCommas(Number(interaction.options.getInteger("금액")))}원\n\`수수료\` : ${numberWithCommas(interaction.options.getInteger("금액") as number - transferBalance)}원\n\`잔액\` : ${numberWithCommas(Number((await userBalance).data.balance) - Number(interaction.options.getInteger('금액')))}원`)
-                        // .addFields(
-                        //     { name: '송금금액 (수수료 포함)', value: codeBlock('diff',`${numberWithCommas(transferBalance)}원`) },
-                        //     { name: '잔액', value: codeBlock('diff',`${numberWithCommas(Number((await userBalance).data.balance) - Number(interaction.options.getInteger('금액')))}원`) },
-                        //     { name: 'ㅤ', value: `${userMention(interaction.user.id)} -> ${userMention(user.id)}` },
-                        // )
                 ], content: ''})
             }
         })
