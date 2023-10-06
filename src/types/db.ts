@@ -13,6 +13,9 @@ export enum APIResponseType {
     'DATA_NOT_CREATED',
     'DATA_NOT_UPDATED',
     'DATA_NOT_DELETED',
+    //송금 상태
+    'LOWER_THAN_SEND_AMOUNT',
+    'TRANSFER_SUCCESS',
 }
 
 export type APIResponse = { status: APIResponseType, data?: any }

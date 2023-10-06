@@ -1,6 +1,6 @@
 import { Command } from "octajs/dist/package/command";
 import { EmbedBuilder } from 'discord.js'
-import { DecreseBalance, IncreseBalance } from "../../../db/economy";
+import { DecreseBalance, IncreseBalance, getUserBalance } from "../../../db/economy";
 import { checkAvailableUser } from "../../../db/user";
 import { APIResponseType } from "../../../types/db";
 import { EmbedBotError, EmbedNotRegister } from "../../../lib/discord";
@@ -39,8 +39,12 @@ const PingCommand: Command = {
         await interaction.deferReply();
         if(!onlyNumberRegex.test(interaction.options.getInteger("베팅금액")?.toString() || "")) return await interaction.editReply("❌ 베팅금액은 숫자만 입력 가능합니다.")
         if(interaction.options.getInteger("베팅금액") as number < 1000) return await interaction.editReply("❌ 최소 베팅금액은 1,000원입니다.");
+
         const isRegister = checkAvailableUser(interaction.user.id)
         if ((await isRegister).status === APIResponseType.USER_NOT_REGISTERED) return await interaction.editReply({ embeds: [EmbedNotRegister] });
+
+        const userBalance = getUserBalance(interaction.user.id);
+        if(interaction.options.getInteger("베팅금액") as number > ((await userBalance).data.balance as number)) return await interaction.editReply("❌ 베팅 금액이 보유 금액보다 많습니다.");
         const choice = interaction.options.getString("선택");
         const random = Math.floor(Math.random() * 3) + 1;
 

@@ -1,11 +1,11 @@
 import { ChatInputCommandInteraction } from "discord.js";
 import { EmbedBuilder } from "discord.js";
 
-export async function isHaveDonatorRole(interaction: ChatInputCommandInteraction) {
-    const isMemberBooster = await interaction.guild?.members.cache.get(interaction.user.id)?.roles.cache.find((role) => role.id === "1156506697087598693");
-    const isMemberDonater = await interaction.guild?.members.cache.get(interaction.user.id)?.roles.cache.find((role) => role.id === "1155126393236115601");
+export function isHaveDonatorRole(interaction: ChatInputCommandInteraction) {
+    const isMemberBooster = interaction.guild?.members.cache.get(interaction.user.id)?.roles.cache.find((role) => role.id === "1156506697087598693");
+    const isMemberDonater = interaction.guild?.members.cache.get(interaction.user.id)?.roles.cache.find((role) => role.id === "1155126393236115601");
 
-    return isMemberBooster || isMemberDonater;
+    return isMemberBooster || isMemberDonater ? true : false;
 }
 
 export const EmbedBotError = new EmbedBuilder()
