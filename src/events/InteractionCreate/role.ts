@@ -10,7 +10,7 @@ const event: EventListener<"interactionCreate"> = {
         if(!interaction.customId.startsWith('rolebutton_')) return;
         await interaction.deferReply({ ephemeral: true });
 
-        const role = interaction.guild?.roles.cache.get(interaction.customId);
+        const role = interaction.guild?.roles.cache.get(interaction.customId.split('rolebutton_')[1]);
         if(!role) {
             interaction.editReply({
                 embeds: [EmbedBotError]
