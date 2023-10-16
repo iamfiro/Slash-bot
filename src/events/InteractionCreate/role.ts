@@ -7,6 +7,7 @@ const event: EventListener<"interactionCreate"> = {
     async listener(bot, interaction) {
         if(process.env.NODE_ENV === 'development') return;
         if(!interaction.isButton()) return;
+        if(!interaction.customId.startsWith('rolebutton_')) return;
         await interaction.deferReply({ ephemeral: true });
 
         const role = interaction.guild?.roles.cache.get(interaction.customId);

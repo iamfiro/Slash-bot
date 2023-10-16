@@ -52,7 +52,7 @@ const event: EventListener<"ready"> = {
 
         gameRole.forEach((role) => {
             row.components.push(
-                new ButtonBuilder().setCustomId(role.id).setLabel(role.label).setStyle(ButtonStyle.Primary).setEmoji({ id: role.emoji })
+                new ButtonBuilder().setCustomId('rolebutton_' + role.id).setLabel(role.label).setStyle(ButtonStyle.Primary).setEmoji({ id: role.emoji })
             )
         });
 
