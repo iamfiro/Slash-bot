@@ -50,7 +50,7 @@ const event: EventListener<"ready"> = {
 
         const row = new ActionRowBuilder<ButtonBuilder>();
 
-        gameRole.forEach((role) => {
+        await gameRole.forEach((role) => {
             row.components.push(
                 new ButtonBuilder().setCustomId('rolebutton_' + role.id).setLabel(role.label).setStyle(ButtonStyle.Primary).setEmoji({ id: role.emoji })
             )
