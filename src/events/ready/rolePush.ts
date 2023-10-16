@@ -3,6 +3,11 @@ import { ActionRowBuilder, ButtonStyle, TextChannel } from "discord.js";
 const fs = require("fs")
 import type { EventListener } from "octajs";
 
+function sleep(ms: number) {
+    const wakeUpTime = Date.now() + ms;
+    while (Date.now() < wakeUpTime) { }
+}
+
 const gameRole = [
     {
         label: "발로란트",
@@ -34,34 +39,33 @@ const gameRole = [
 const event: EventListener<"ready"> = {
     type: "ready",
     async listener(bot, client) {
-        if(process.env.NODE_ENV === 'development') return;
-        const channel = await client.channels.fetch('1156183493328502854') as TextChannel; // 나중에 변경
-        if(!channel) return;
-        const json = await JSON.parse(fs.readFileSync('src/events/ready/roleMessageId.json', 'utf8'));
-        if(json.gameMessageId === '') {
+        if (process.env.NODE_ENV === 'development') return;
+        const channel = await client.channels.fetch('1156183493328502854') as TextChannel; // 역할 채널
+        if (!channel) return;
+        const json = await JSON.parse(fs.readFileSync('db/roleMessageId.json', 'utf8'));
+
+        if (json.gameMessageId === '') {
             channel.send(`게임 관련 역할을 받으시려면 아래 버튼들을 눌러주세요.`).then(async (message) => {
                 json.gameMessageId = message.id;
 
-                await fs.writeFile('src/events/ready/roleMessageId.json', JSON.stringify(json), 'utf8', (err: any) => {
+                await fs.writeFile('db/roleMessageId.json', JSON.stringify(json), 'utf8', (err: any) => {
                     console.log('write file error', err)
+                });
+                
+                const row = new ActionRowBuilder<ButtonBuilder>();
+
+                await gameRole.forEach((role) => {
+                    row.components.push(
+                        new ButtonBuilder().setCustomId('rolebutton_' + role.id).setLabel(role.label).setStyle(ButtonStyle.Primary).setEmoji({ id: role.emoji })
+                    )
+                });
+
+                (await channel.messages.fetch(message.id)).edit({
+                    content: '게임 관련 역할을 받으시려면 아래 버튼들을 눌러주세요.',
+                    components: [row]
                 })
             })
         }
-
-        const row = new ActionRowBuilder<ButtonBuilder>();
-
-        await gameRole.forEach((role) => {
-            row.components.push(
-                new ButtonBuilder().setCustomId('rolebutton_' + role.id).setLabel(role.label).setStyle(ButtonStyle.Primary).setEmoji({ id: role.emoji })
-            )
-        });
-
-        const fetchedMessage = await channel.messages.fetch(json.gameMessageId);
-
-        await fetchedMessage.edit({
-            content: '게임 관련 역할을 받으시려면 아래 버튼들을 눌러주세요.',
-            components: [row]
-        })
     },
 };
 

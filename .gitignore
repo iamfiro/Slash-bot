@@ -4,14 +4,14 @@ node_modules
 # build
 dist
 
+# json db
+db
+
 # macos
 **/.DS_Store
 
 # .env
 .env
-
-# role db
-src/events/ready/roleMessageId.json
 
 # error
 yarn-error.log
