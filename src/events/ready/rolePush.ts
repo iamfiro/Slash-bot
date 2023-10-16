@@ -58,7 +58,7 @@ const event: EventListener<"ready"> = {
 
         const fetchedMessage = await channel.messages.fetch(json.gameMessageId);
 
-        fetchedMessage.edit({
+        await fetchedMessage.edit({
             content: '게임 관련 역할을 받으시려면 아래 버튼들을 눌러주세요.',
             components: [row]
         })
