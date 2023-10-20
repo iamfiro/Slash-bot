@@ -13,6 +13,8 @@ model User {
   userId String @unique
   Economy Economy?
   userName String @default("")
+  xp BigInt @default(0)
+  level Int @default(0)
 }
 
 model Economy {

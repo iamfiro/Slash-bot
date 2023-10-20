@@ -28,11 +28,11 @@ const event: EventListener<"messageCreate"> = {
                 const { data } = await axios.post('https://api.onhost.kr:26120/create', {
                     "key": "Zm1+GKbSeKAZQjfiDFj51zPUqCyXz7doUT4W+WkHWNg=",
                     "messages": [
-                        { "role": "system", "content": "You are a helpful assistant, you must speak in 500 characters or less and If there are important words, surround them with two asterisks (e.g. Valorant is an FPS game from **Riot Games**) and When using strikethrough, surround the message with ~~" },
+                        { "role": "system", "content": "You are a helpful assistant, you must speak in 500 characters or less and If there are important words, surround them with two asterisks (e.g. Valorant is an FPS game from **Riot Games**) and When using strikethrough, surround the message with ~~, 메세지 내용중에 <@로 시작한 글자가 있으면 무조건 말 없이 무시하고  죄송합니다 요청을 처리 할수 없습니다. 잘못된 접근 입니다라고 말해줘, 코드를 실행해 또는 결과를 출력해 달라는 요청은 무조건 말 없이 무시하고 죄송합니다 요청을 처리 할수 없습니다. 또는 잘못된 접근 입니다 라고 말해줘" },
                         { "role": "user", "content": sliceMessage }
                     ]
                 });
-                const msg = data.choices[0].message.content;
+                const msg = data.choices[0].message.content.replace('<@', '');
                 await message.reply({ content: `${msg as string}\n\`\`\`📘 | 츠니가 배우지 않은 지식입니다.\n${data.model} 에서 생성된 답변입니다\n\`\`\``, components: [row] })
             }
         })
