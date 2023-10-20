@@ -76,7 +76,6 @@ const event: EventListener<"messageCreate"> = {
         });
 
         if (isDetected[0]) {
-            console.log(isDetected)
             if (urlRegex.test(message.content)) return;
             const warn = new EmbedBuilder()
                 .setColor('Red')
@@ -92,6 +91,9 @@ const event: EventListener<"messageCreate"> = {
                     message: `욕 사용 - ${message.content}`
                 }
             });
+
+            message.delete();
+            (bot.channels.cache.get(message.channelId) as TextChannel).send(`**검열된 메시지** :\n||${message.content}||\n<@${message.author.id}>`)
 
             const dmWarn = new EmbedBuilder()
                 .setColor('Yellow')
