@@ -24,7 +24,8 @@ const event: EventListener<"messageCreate"> = {
         await prisma.teachText.findFirst({ where: { reconizeText: sliceMessage } }).then(async (res) => {
             if (res !== null) {
                 const addUser = bot.users.cache.get(res.userId)
-                await message.reply({ content: `${res.message as string}\n\`\`\`📕 | ${addUser?.username} 님이 가르쳐주셨어요!\n\`\`\``, components: [row] })
+                const messageContent = res.message ? res.message.replace('@', '') : '';
+                await message.reply({ content: `${messageContent}\n\`\`\`📕 | ${addUser?.username} 님이 가르쳐주셨어요!\n\`\`\``, components: [row] })
             } else {
                 const { data } = await axios.post('https://api.onhost.kr:26120/create', {
                     "key": "Zm1+GKbSeKAZQjfiDFj51zPUqCyXz7doUT4W+WkHWNg=",
@@ -33,7 +34,7 @@ const event: EventListener<"messageCreate"> = {
                         { "role": "user", "content": sliceMessage }
                     ]
                 });
-                const msg = data.choices[0].message.content.replace('<@', '');
+                const msg = data.choices[0].message.content.replace('@', '');
                 await message.reply({ content: `${msg as string}\n\`\`\`📘 | 츠니가 배우지 않은 지식입니다.\n${data.model} 에서 생성된 답변입니다\n\`\`\``, components: [row] })
             }
         })

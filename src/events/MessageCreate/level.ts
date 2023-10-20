@@ -39,7 +39,7 @@ const event: EventListener<"messageCreate"> = {
 
                         const rankData = await rank.build();
                         const attachment = new AttachmentBuilder(rankData);
-                        await message.channel.send({ content: `<@${message.author.id}>님 레벨 상승\n${data?.level ?? 1} -> ${data?.level ? data.level + 1 : 0}`, files: [attachment] })
+                        await message.channel.send({ content: `<@${message.author.id}>님 레벨 상승\n**${data?.level ?? 1}** 레벨 -> **${data?.level ? data.level + 1 : 0}** 레벨`, files: [attachment] })
                     })
                 } else {
                     await prisma.userLevel.update({ where: { userId: message.author.id }, data: { xp: data.xp + BigInt(1) } })
