@@ -35,3 +35,10 @@ model BadWord {
   userId String
   message String?
 }
+
+model TeachText {
+  id Int @default(autoincrement()) @unique
+  userId String
+  reconizeText String?
+  message String?
+}
