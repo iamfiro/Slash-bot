@@ -8,6 +8,10 @@ const event: EventListener<"messageCreate"> = {
     async listener(bot, message) {
         if (!message.content.startsWith('츠니야 ')) return;
         if (message.author.bot) return;
+    //     if(message.channel.id !== '1156831434934337616') {
+    //         await message.reply({ content: '현재 이용할수 없는 기능입니다' });
+    //         return;
+    //    }
         if(process.env.NODE_ENV === 'development') return;
         const sliceMessage = message.content.slice(4);
         if (sliceMessage === '') return;
