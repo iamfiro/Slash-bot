@@ -2,6 +2,8 @@ import type { EventListener } from "octajs";
 import prisma from "../../lib/prisma";
 import { EmbedBuilder, TextChannel, userMention } from "discord.js";
 
+const regex = /@/;
+
 const event: EventListener<"interactionCreate"> = {
     type: "interactionCreate",
     async listener(bot, interaction) {
@@ -10,6 +12,15 @@ const event: EventListener<"interactionCreate"> = {
 
         const reconizeText = interaction.fields.getTextInputValue('name_learn_title');
         const message = interaction.fields.getTextInputValue('name_learn_value');
+
+        if(regex.test(reconizeText)) {
+            await interaction.reply({ content: '📕 | 등록할수 없는 지식입니다', ephemeral: true });
+            return;
+        }
+        if(regex.test(message)) {
+            await interaction.reply({ content: '📕 | 등록할수 없는 지식입니다', ephemeral: true });
+            return;
+        }
 
         const LearnLogEmbed = new EmbedBuilder()
             .setTitle('📕 츠니 가르치기 등록됨')
