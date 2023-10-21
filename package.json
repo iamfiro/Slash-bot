@@ -12,6 +12,7 @@
     "dotenv": "^16.3.1",
     "korcen": "^0.2.4",
     "octajs": "^1.0.8",
+    "simply-djs": "^4.1.1",
     "winston": "^3.10.0"
   },
   "scripts": {
