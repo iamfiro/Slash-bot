@@ -12,7 +12,7 @@ const event: EventListener<"messageCreate"> = {
             if(!data) {
                 await prisma.userLevel.create({ data: { userId: message.author.id, xp: 0, level: 1 } })
             } else {
-                const requireXp = 50 * (Math.pow(2, data.level) - 1);
+                const requireXp = data.level * 100
 
                 if(data.xp + BigInt(1) >= requireXp) {
                     await prisma.userLevel.update({ where: { userId: message.author.id }, data: { xp: data.xp + BigInt(1), level: data.level + 1 } })
@@ -30,8 +30,8 @@ const event: EventListener<"messageCreate"> = {
                             .setAvatar(message.author.avatarURL({ size: 256 }) as string)
                             .setRank(currentRank)
                             .setLevel(data?.level ?? 1)
-                            .setCurrentXP(Number(data?.xp) as number)
-                            .setRequiredXP(50 * (Math.pow(2, data?.level ?? 1) - 1))
+                            .setCurrentXP(Number(data?.xp) as number - ((data?.level as number) - 1) * 100)
+                            .setRequiredXP(100)
                             .setStatus(message.member?.presence?.status ?? "offline" as PresenceStatus)
                             .setProgressBar("#015BFE", "COLOR")
                             .setUsername(message.author.username)
@@ -39,7 +39,7 @@ const event: EventListener<"messageCreate"> = {
 
                         const rankData = await rank.build();
                         const attachment = new AttachmentBuilder(rankData);
-                        await message.channel.send({ content: `<@${message.author.id}>님 레벨 상승\n**${data?.level ?? 1}** 레벨 -> **${data?.level ? data.level + 1 : 0}** 레벨`, files: [attachment] })
+                        await message.channel.send({ content: `<@${message.author.id}>, **${(data?.level as number) - 1 ?? 1}** 레벨 -> **${data?.level}** 레벨 👑`, files: [attachment] })
                     })
                 } else {
                     await prisma.userLevel.update({ where: { userId: message.author.id }, data: { xp: data.xp + BigInt(1) } })
