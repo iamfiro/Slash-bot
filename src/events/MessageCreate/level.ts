@@ -7,6 +7,7 @@ const event: EventListener<"messageCreate"> = {
     type: "messageCreate",
     async listener(bot, message) {
         if (message.author.bot) return;
+        if(message.channelId === '1156169791824990268') return;
         if(process.env.NODE_ENV === 'development') return;
         await prisma.userLevel.findFirst({ where: { userId: message.author.id } }).then(async (data) => {
             if(!data) {
