@@ -5,7 +5,7 @@ import canvacord from "canvacord";
 
 const command: Command = {
     name: "랭킹",
-    description: "You say ping, I say pong!",
+    description: "[ 🏆 ] 서버 랭킹을 보여줍니다",
     async executes(_, interaction) {
         await interaction.deferReply();
         const user = await prisma.userLevel.findMany({

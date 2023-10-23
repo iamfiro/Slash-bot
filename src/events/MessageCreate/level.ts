@@ -25,21 +25,7 @@ const event: EventListener<"messageCreate"> = {
                             }
                         })
             
-                        const currentRank = allLevels.findIndex((user) => user.userId === message.author.id) + 1;
-                        const rank = new canvacord.Rank()
-                            .setAvatar(message.author.avatarURL({ size: 256 }) as string)
-                            .setRank(currentRank)
-                            .setLevel(data?.level ?? 1)
-                            .setCurrentXP(Number(data?.xp) as number - ((data?.level as number) - 1) * 100)
-                            .setRequiredXP(100)
-                            .setStatus(message.member?.presence?.status ?? "offline" as PresenceStatus)
-                            .setProgressBar("#015BFE", "COLOR")
-                            .setUsername(message.author.username)
-                            .setDiscriminator(message.author.discriminator)
-
-                        const rankData = await rank.build();
-                        const attachment = new AttachmentBuilder(rankData);
-                        await message.channel.send({ content: `<@${message.author.id}>, **${(data?.level as number) - 1 ?? 1}** 레벨 -> **${data?.level}** 레벨 👑`, files: [attachment] })
+                        await message.channel.send({ content: `<@${message.author.id}>, **${(data?.level as number) - 1 ?? 1}** 레벨 -> **${data?.level}** 레벨 👑` })
                     })
                 } else {
                     await prisma.userLevel.update({ where: { userId: message.author.id }, data: { xp: data.xp + BigInt(1) } })
