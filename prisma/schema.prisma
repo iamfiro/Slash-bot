@@ -11,8 +11,8 @@ datasource db {
 
 model UserLevel {
   userId String @unique
-  xp BigInt @default(1)
-  level Int @default(1)
+  xp BigInt @default(0)
+  level Int @default(0)
 }
 
 model User {

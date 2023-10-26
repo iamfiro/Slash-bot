@@ -17,18 +17,24 @@ const event: EventListener<"voiceStateUpdate"> = {
           // Give user xp
           try {
             console.log('xp 지급')
-            await prisma.userLevel.update({
-              where: {
-                userId: member!.id,
-              },
-              data: {
-                xp: {
-                  increment: 3,
-                },
-              },
-            });
+            await prisma.userLevel.findFirst({ where: { userId: member!.id } }).then(async (data) => {
+              if(!data) {
+                  await prisma.userLevel.create({ data: { userId: member!.id, xp: 3, level: 0 } })
+              } else {
+                await prisma.userLevel.update({
+                  where: {
+                    userId: member!.id,
+                  },
+                  data: {
+                    xp: {
+                      increment: 3,
+                    },
+                  },
+                });
+              }
+            })
           } catch (e) {}
-        }, 1000 * 30 * 1);
+        }, 1000 * 60 * 8);
     }
     else if (oldState.channelId === null) {
       console.log('나감')

@@ -1,7 +1,8 @@
 import { Command } from "octajs";
-import { Stock } from "../../lib/stock";
+import { NewStateProps, Stock } from "../../lib/stock";
 import { ChartJSNodeCanvas } from "chartjs-node-canvas";
 import { AttachmentBuilder } from "discord.js";
+import { octabot } from "../..";
 
 const ALL_STOCKS: Stock[] = [
   new Stock({
@@ -43,3 +44,12 @@ const chartViewCommand: Command = {
 };
 
 export default chartViewCommand;
+octabot.runRawJob((bot) => {
+  ALL_STOCKS.forEach((stock) => {
+    stock.on("NEWSTATE", (state: NewStateProps) => {
+      const ch = bot.channels.cache.get("1156831434934337616");
+      if (ch && ch.isTextBased())
+        ch.send(`[${stock.name}] New state: ${state} ${stock.price}`);
+    });
+  });
+});

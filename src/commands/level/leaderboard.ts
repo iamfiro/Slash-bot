@@ -15,14 +15,16 @@ const command: Command = {
                 }
             ],
         });
+
         const me = user.find((user) => user.userId === interaction.user.id);
+        const currentXp = me?.level === 0 ? Number(me.xp) : Number(me?.xp) - Number(me?.level) * 100
         const fetchedMe = interaction.guild?.members.cache.get(interaction.user.id);
         const currentRank = user.findIndex((user) => user.userId === interaction.user.id) + 1;
         const rank = new canvacord.Rank()
             .setAvatar(interaction.user.avatarURL({ size: 256 }) as string)
             .setRank(currentRank)
             .setLevel(me?.level ?? 1)
-            .setCurrentXP(Number(me?.xp) as number - ((me?.level as number) - 1) * 100)
+            .setCurrentXP(currentXp)
             .setRequiredXP(100)
             .setStatus(fetchedMe?.presence?.status ?? "offline" as PresenceStatus)
             .setProgressBar("#015BFE", "COLOR")
