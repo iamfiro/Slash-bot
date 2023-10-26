@@ -3,11 +3,6 @@ import { ActionRowBuilder, ButtonStyle, TextChannel } from "discord.js";
 const fs = require("fs")
 import type { EventListener } from "octajs";
 
-function sleep(ms: number) {
-    const wakeUpTime = Date.now() + ms;
-    while (Date.now() < wakeUpTime) { }
-}
-
 const gameRole = [
     {
         label: "발로란트",
@@ -34,6 +29,17 @@ const gameRole = [
         id: "1163378367698055179",
         emoji: "1163378017129734196"
     },
+    {
+        label: "리그오브레전드",
+        id: "1167132348991668274",
+        emoji: "1167131765261992047"
+    },
+    ,
+    {
+        label: "전략적 팀 전투",
+        id: "1167132501928583338",
+        emoji: "1167132068917035008"
+    },
 ]
 
 const event: EventListener<"ready"> = {
@@ -54,7 +60,7 @@ const event: EventListener<"ready"> = {
                 
                 const row = new ActionRowBuilder<ButtonBuilder>();
 
-                await gameRole.forEach((role) => {
+                await gameRole.forEach((role: any) => {
                     row.components.push(
                         new ButtonBuilder().setCustomId('rolebutton_' + role.id).setLabel(role.label).setStyle(ButtonStyle.Primary).setEmoji({ id: role.emoji })
                     )
