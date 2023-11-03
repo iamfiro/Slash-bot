@@ -7,6 +7,7 @@ const event: EventListener<"voiceStateUpdate"> = {
   type: "voiceStateUpdate",
   async listener(bot, newState, oldState) {
     let member = oldState.member;
+    if(process.env.NODE_ENV === 'development') return;
     
     if (newState.channelId === null) {
       console.log('들어옴')
