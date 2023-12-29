@@ -15,6 +15,13 @@ model UserLevel {
   level Int @default(0)
 }
 
+model ValorantRegister {
+  userId String @unique
+  server String
+  valorantName String @default("")
+  valorantTag String @default("")
+}
+
 model User {
   userId String @unique
   Economy Economy?
