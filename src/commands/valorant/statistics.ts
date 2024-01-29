@@ -29,12 +29,13 @@ function regionToKorean(region: string) {
 }
 
 function tierToKorean(tier: string) {
-    console.log(tier)
     switch (tier) {
         case "Radiant":
             return tier.replace('Radiant', '레디언트');
         case "Immortal":
-            return tier.replace('Immortal', '초월자');
+            return tier.replace('Immortal', '불멸');
+        case "Ascendant":
+            return tier.replace('Ascendant', '초월자');
         case "Diamond":
             return tier.replace('Diamond', '다이아몬드');
         case "Platinum":
@@ -55,6 +56,7 @@ function tierToKorean(tier: string) {
 function tierColor(tier: string) {
     if (tier.startsWith('Radiant')) return 0xCC9E4D;
     if (tier.startsWith('Immortal')) return 0xB83B52;
+    if (tier.startsWith('Ascendant')) return 0x2F814B;
     if (tier.startsWith('Diamond')) return 0xC388F1;
     if (tier.startsWith('Platinum')) return 0x4CA1B1;
     if (tier.startsWith('Gold')) return 0xFFD700;
@@ -66,7 +68,7 @@ function tierColor(tier: string) {
 
 const PingCommand: Command = {
     name: "발로란트",
-    description: "발로란트 전적을 확인 합니다",
+    description: "[ 🎮 ] 발로란트 전적을 확인 합니다",
     options: {
         지역: {
             description: "발로란트 서버",
@@ -154,8 +156,6 @@ const PingCommand: Command = {
 
             if (valorantProfile === 'e') return await interaction.editReply({ embeds: [UserNotFoundError] });
 
-            console.log(valorantProfile.data.data.region)
-
             const ValorantEmbed = new EmbedBuilder()
                 .setTitle(`${valorantProfile.data.data.name}#${valorantProfile.data.data.tag}`)
                 .setFooter({ text: `${valorantProfile.data.data.puuid} · ${valorantProfile.data.data.last_update}` })
@@ -192,6 +192,7 @@ const PingCommand: Command = {
                         value: currentTier.data.data.mmr_change_to_last_game + '점',
                     }
                 ])
+
 
             let lastMatchesEmbed = null as unknown as EmbedBuilder;
             let lastMatchesFields = [] as any;

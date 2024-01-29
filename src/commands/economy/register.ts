@@ -11,7 +11,7 @@ export const alreadyRegister = new EmbedBuilder()
 
 const PingCommand: Command = {
     name: "가입",
-    description: "가입해 츠니봇의 다양한 서비스들을 사용해보세요!",
+    description: "[ 📃 ] 가입해 츠니봇의 다양한 서비스들을 사용해보세요!",
     async executes(_, interaction) {
         checkAvailableUser(interaction.user.id).then(async (data: APIResponse) => {
             if(data.status === APIResponseType.USER_ALREADY_REGISTERED) return await interaction.reply({ embeds: [alreadyRegister] });

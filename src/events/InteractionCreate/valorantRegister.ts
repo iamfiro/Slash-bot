@@ -1,8 +1,5 @@
 import type { EventListener } from "octajs";
 import prisma from "../../lib/prisma";
-import { EmbedBuilder, TextChannel, userMention } from "discord.js";
-
-const regex = /@/;
 
 const event: EventListener<"interactionCreate"> = {
     type: "interactionCreate",
@@ -12,24 +9,31 @@ const event: EventListener<"interactionCreate"> = {
         const slice = interaction.customId.split('_');
         if(interaction.user.id !== slice[1]) return;
 
-        await prisma.valorantRegister.upsert({
-            create: {
-                userId: slice[1],
-                server: slice[2],
-                valorantName: slice[3],
-                valorantTag: slice[4],
-            },
-            update: {
-                server: slice[2],
-                valorantName: slice[3],
-                valorantTag: slice[4],
-            },
+        await prisma.valorantRegister.findFirst({
             where: {
-                userId: slice[1],
+                userId: interaction.user.id,
+                server: slice[2],
+                valorantName: slice[3],
+                valorantTag: slice[4],
             }
-        });
-
-        interaction.reply(`<@${interaction.user.id}>님 **${slice[3]}#${slice[4]}** 계정이 등록되었습니다!`)
+        }).then(async (data) => {
+            if(data) {
+                return interaction.reply(`❌ <@${interaction.user.id}>님 정보에 이미 등록된 계정입니다.`)
+            } else {
+                await prisma.valorantRegister.create({
+                    data: {
+                        userId: slice[1],
+                        server: slice[2],
+                        valorantName: slice[3],
+                        valorantTag: slice[4],
+                    },
+                }).then(async () => {
+                    interaction.reply(`<@${interaction.user.id}>님 **${slice[3]}#${slice[4]}** 계정이 등록되었습니다!`)
+                }).catch(async () => {
+                    return interaction.reply('❌ <@${interaction.user.id}>님 데이터 처리 중 오류가 발생했습니다.')
+                })
+            }
+        })
     }
 }
 

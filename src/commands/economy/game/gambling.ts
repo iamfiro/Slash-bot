@@ -8,11 +8,6 @@ import { DecreseBalance, IncreseBalance, getUserBalance } from "../../../db/econ
 import { transferMoney } from "../../../db/bank";
 import { numberWithCommas } from "../../../lib/format";
 
-function caculateFee(amount: number, isDonater: boolean) {
-    if(isDonater) return amount;
-    return Math.floor(amount - (amount * 0.1));
-}
-
 const PingCommand: Command = {
     name: "도박",
     description: "[ 💸 ] 잃을지 얻을지...",

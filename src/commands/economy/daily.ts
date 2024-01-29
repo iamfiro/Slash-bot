@@ -14,7 +14,7 @@ const alreadyGetDaily = new EmbedBuilder()
 
 const PingCommand: Command = {
     name: "출석",
-    description: "매일 주어지는 보상을 받으실수 있어요!",
+    description: "[ 💰 ] 매일 주어지는 보상을 받으실수 있어요!",
     async executes(bot, interaction) {
         await interaction.deferReply();
         if (!interaction.member) return await interaction.reply("❌ 서버에서 사용해주세요");

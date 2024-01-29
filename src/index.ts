@@ -89,10 +89,6 @@ loadCommand()
   .then(() => loadEvents())
   .then(() => {
     octabot.start();
-    const InstanceID = Math.floor(Math.random() * (99999 - 10000) + 10000);
-    setInterval(() => {
-      console.log(`알림 | 인스턴스 ${InstanceID}번 실행중`);
-    }, 30000);
   });
 
 octabot.runRawJob((bot) => {

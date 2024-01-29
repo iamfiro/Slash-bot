@@ -16,7 +16,8 @@ model UserLevel {
 }
 
 model ValorantRegister {
-  userId String @unique
+  id Int @default(autoincrement()) @unique
+  userId String
   server String
   valorantName String @default("")
   valorantTag String @default("")

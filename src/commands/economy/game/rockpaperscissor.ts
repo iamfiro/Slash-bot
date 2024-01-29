@@ -33,7 +33,7 @@ function randomChoice() {
 
 const RockPaperScissorCommand: Command = {
     name: "가위바위보",
-    description: "봇과 가위바위보를 하여 최대 2배 보상을 받으세요",
+    description: "[ 🎮 ] 봇과 가위바위보를 하여 최대 2배 보상을 받으세요",
     options: {
         상대방: {
             description: "상대방을 선택해주세요",
