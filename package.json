@@ -19,7 +19,7 @@
   "scripts": {
     "build": "npx tsc",
     "start": "node .",
-    "dev": "npx nodemon --watch src --ext ts,mts,cts,js,json --ignore dist --exec \"npx tsc && node .\""
+    "dev": "npx tsc && node ."
   },
   "main": "dist/index.js"
 }

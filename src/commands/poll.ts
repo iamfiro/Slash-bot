@@ -3,7 +3,7 @@ import { EmbedBuilder } from "discord.js";
 
 const PollCommand: Command = {
   name: "투표",
-  description: "다른 사람들의 의견을 받을수 있어요!",
+  description: "[ 📋 ] 다른 사람들의 의견을 받을수 있어요!",
   options: {
     내용: {
       description: "투표의 내용입니다",

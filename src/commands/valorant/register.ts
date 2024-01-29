@@ -1,60 +1,16 @@
 import type { Command } from "octajs/dist/package/command";
 import { ActionRowBuilder, ButtonBuilder, ButtonStyle, EmbedBuilder } from "discord.js";
 import axios from "axios";
-import winston from "winston";
 
 const UserNotFoundError = new EmbedBuilder()
     .setTitle("❌ 유저를 찾을수 없습니다")
     .setColor("Red")
     .setTimestamp();
 
-const UserNotFoundCompetive = new EmbedBuilder()
-    .setTitle("❌ 경쟁전 정보를 찾을수 없습니다")
-    .setColor("Red")
-    .setTimestamp();
-
-function regionToKorean(region: string) {
-    switch (region) {
-        case "kr":
-            return "대한민국";
-        case "ap":
-            return "아시아";
-        case "eu":
-            return "유럽";
-        case "na":
-            return "북아메리카";
-        default:
-            return "알수없음";
-    }
-}
-
-function tierToKorean(tier: string) {
-    console.log(tier)
-    switch (tier) {
-        case "Radiant":
-            return tier.replace('Radiant', '레디언트');
-        case "Immortal":
-            return tier.replace('Immortal', '초월자');
-        case "Diamond":
-            return tier.replace('Diamond', '다이아몬드');
-        case "Platinum":
-            return tier.replace('Platinum', '플래티넘');
-        case "Gold":
-            return tier.replace('Gold', '골드');
-        case "Silver":
-            return tier.replace('Silver', '실버');
-        case "Bronze":
-            return tier.replace('Bronze', '브론즈');
-        case "Iron":
-            return tier.replace('Iron', '아이언');
-        default:
-            return tier;
-    }
-}
-
 function tierColor(tier: string) {
     if (tier.startsWith('Radiant')) return 0xCC9E4D;
     if (tier.startsWith('Immortal')) return 0xB83B52;
+    if (tier.startsWith('Ascendant')) return 0x2F814B;
     if (tier.startsWith('Diamond')) return 0xC388F1;
     if (tier.startsWith('Platinum')) return 0x4CA1B1;
     if (tier.startsWith('Gold')) return 0xFFD700;
@@ -66,7 +22,7 @@ function tierColor(tier: string) {
 
 const PingCommand: Command = {
     name: "내발로등록",
-    description: "발로란트 정보를 츠니에 등록합니다",
+    description: "[ 🎮 ] 발로란트 정보를 츠니에 등록합니다",
     options: {
         지역: {
             description: "발로란트 서버",
