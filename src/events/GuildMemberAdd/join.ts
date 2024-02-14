@@ -28,13 +28,6 @@ const eventListener: EventListener<"guildMemberAdd"> = {
         (await message).react("<a:blobcatpop:1156234395179569232>");
 
         member.setNickname(`₊˚⸝🍀${member.user.username}`)
-
-        // Give new member the "시민" role
-        const role = member.guild.roles.cache.find(
-            (role) => role.id === "1155126393210945674"
-        );
-        if (!role) return;
-        member.roles.add(role);
     },
 };
 
