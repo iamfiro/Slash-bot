@@ -26,8 +26,8 @@ const eventListener: EventListener<"guildMemberAdd"> = {
             bot.channels.cache.get("1200095486397386912") as TextChannel
         ).send({ content: `<@${member.user.id}>`, embeds: [welcomeEmbed] });
         (await message).react("<a:blobcatpop:1156234395179569232>");
-
-        member.setNickname(`₊˚⸝🍀${member.user.username}`)
+            
+        member.setNickname(`₊˚⸝🐙${member.user.username}`)
     },
 };
 

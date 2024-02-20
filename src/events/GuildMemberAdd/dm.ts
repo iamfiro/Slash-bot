@@ -11,7 +11,7 @@ const eventListener: EventListener<"guildMemberAdd"> = {
     type: "guildMemberAdd",
     async listener(bot, member) {
         if (process.env.NODE_ENV === 'development') return;
-
+    
         member.send({
             embeds: [
                 new EmbedBuilder()
