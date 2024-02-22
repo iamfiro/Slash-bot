@@ -44,29 +44,7 @@ const event: EventListener<"interactionCreate"> = {
                             interaction.user.send("다양한 정보는 https://discord.com/channels/1155126393152225371/1204383815661785148 에서 안내 요청을 해주세요").then((msg) => {
                                 
                             })
-                        //     interaction.user.send("2️⃣ 다음으로 채널 소개를 해드릴게요!\n\n").then((msg) => {
-                        //         sleep(2000)
-                        //         interaction.user.send(`<#1200095532341788722> **개발(코딩) 관련 이야기**를 하는 곳이에요!\n\n`).then((msg) => {
-                        //             sleep(2000)
-                        //             interaction.user.send(`<#1200095615103807538> **봇을 사용하시거나 관련 이야기** 하는 곳이에요 (<a:neko_neko:1165189202590322698> 저기서 저를 만나실 수 있어요!)\n\n`).then((msg) => {
-                        //                 sleep(2000)
-                        //                 interaction.user.send(`<#1200687231300546651> **이 채널의 메시지는 관리자가 관여하지 않는 곳**이에요!\n모든 메시지의 책임은 사용자 본인에게 있습니다.\n\n`).then((msg) => {
-                        //                     sleep(2000)
-                        //                     interaction.user.send(`<#1200095742602256446> **사진을 올리는** 곳이에요!\n(<:i_:1189110772605911153>랑 비슷해요...)`).then((msg) => {
-                        //                         sleep(2000)
-                        //                         interaction.user.send(`제가 알려드릴껀 여기까지에요!`).then((msg) => {
-                        //                             sleep(1000)
-                        //                             interaction.user.send(`들어주셔서 고마워요 <:neko_kissheart:1165188685399085088>`).then((msg) => {
-                        //                                 sleep(1000)
-                        //                                 interaction.user.send(`<:neko_sleep:1165188746078068776> 츠니가 채팅방을 나갔습니다 ...zzZ`)
-                        //                             })
-                        //                         })
-                        //                     })
-                        //                 })
-                        //             })
-                        //         })
-                        //     })
-                        // })
+                        })
                     })
                 })
             })
