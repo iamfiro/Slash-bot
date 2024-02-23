@@ -27,8 +27,11 @@ const eventListener: EventListener<"guildMemberAdd"> = {
         ).send({ content: `<@${member.user.id}>`, embeds: [welcomeEmbed] });
         (await message).react("<a:blobcatpop:1156234395179569232>");
 
-	member.setNickname(`🎀 ${member.displayName} ⸝⸝`)
-	member.roles.remove("1155126393210945674")
+        member.setNickname(`🎀 ${member.displayName} ⸝⸝`)
+        member.roles.remove("1155126393210945674")
+
+        const countChannel = bot.channels.cache.get("1206593629607690293") as TextChannel;
+        countChannel.setName(`ʚ・💌﹕${member.guild.memberCount}・ɞ`)
     },
 };
 
