@@ -8,7 +8,7 @@ const event: EventListener<"messageCreate"> = {
         if (message.author.bot) return;
         const server = (
             bot.channels.cache.get("1209827288846303252") as TextChannel
-        ).send({ content: `채팅이 감지됨 | ${userMention(message.author.id)} <${message.author.id}> - \`${message.content}\` | ${new Date().toTimeString()} / ${new Date().toDateString()}`})
+        ).send({ content: `채팅이 감지됨 | <#${message.channelId}> ${message.author.id} <${message.author.id}> - \`${message.content}\` | ${new Date().toTimeString()} / ${new Date().toDateString()}`})
         if(!message.guild) return;
         if(process.env.NODE_ENV === 'development') return;
 
