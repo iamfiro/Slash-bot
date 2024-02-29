@@ -105,6 +105,9 @@ octabot.runRawJob((bot) => {
     setInterval(() => {
         setValorantStatus(bot)
     }, 1000 * 60 * 15);
+    setInterval(() => {
+        setValorantEsport(bot)
+    }, 8000);
 });
 
 async function setValorantStatus(bot: Client<boolean>) {
@@ -222,6 +225,69 @@ async function setValorantStatus(bot: Client<boolean>) {
                     if (channel?.isTextBased()) {
                         (channel as TextChannel).send({ embeds: EmbedContainer })
                     }
+                })
+            })
+        }
+    });
+}
+
+async function setValorantEsport(bot: Client<boolean>) {
+
+    bot.channels.fetch("1212599013581258832").then(async (channel) => {
+        if (channel?.isTextBased()) {
+            (channel as TextChannel as any).bulkDelete(5, true).then(async () => {
+                await axios.get("https://api.henrikdev.xyz/valorant/v1/esports/schedule").then(async (res): Promise<void> => {
+                    const data = res.data.data.filter((data: any) => data.state === "unstarted")
+                    data.map((data: any, idx: number) => {
+                        if(idx > 4) return;
+                        const esYear = data.date.substr(0, 4)
+                        const esMonth = data.date.substr(5, 2)
+                        const esDay = data.date.substr(8, 2)
+                        const esHour = data.date.substr(11, 2)
+
+                        bot.channels.fetch("1212599013581258832").then((channel): void => {
+                            if (channel?.isTextBased()) {
+                                (channel as TextChannel).send({ embeds: [
+                                    new EmbedBuilder()
+                                        .setAuthor({ name: `${data.league.region} - ${data.tournament.season}` })
+                                        .setTitle(data.league.name)
+                                        .setDescription(`${esYear}년 ${esMonth}월 ${esDay}일 ${esHour}시 예정`)
+                                        .setThumbnail(data.league.icon)
+                                        .setColor('Yellow'),
+                                    new EmbedBuilder()
+                                        .setAuthor({ name: `팀 #1` })
+                                        .setColor('Red')
+                                        .setTitle(data.match.teams[0].name)
+                                        .setThumbnail(data.match.teams[0].icon)
+                                        .setFields([
+                                            {
+                                                name: '우승 횟수',
+                                                value: `${data.match.teams[1].game_wins}회`,
+                                            },
+                                            {
+                                                name: '대회 전적',
+                                                value: `${data.match.teams[0].record.wins}승 ${data.match.teams[0].record.losses}패`,
+                                            },
+                                        ]),
+                                    new EmbedBuilder()
+                                        .setAuthor({ name: `팀 #2` })
+                                        .setColor('Blue')
+                                        .setTitle(data.match.teams[1].name)
+                                        .setThumbnail(data.match.teams[1].icon)
+                                        .setFields([
+                                            {
+                                                name: '우승 횟수',
+                                                value: `${data.match.teams[1].game_wins}회`,
+                                            },
+                                            {
+                                                name: '대회 전적',
+                                                value: `${data.match.teams[1].record.wins}승 ${data.match.teams[1].record.losses}패`,
+                                            },
+                                        ]),
+                                ] })
+                            }
+                        });
+                    })
                 })
             })
         }
