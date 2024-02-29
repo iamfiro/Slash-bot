@@ -104,7 +104,7 @@ octabot.runRawJob((bot) => {
     })
     setInterval(() => {
         setValorantStatus(bot)
-    }, 1000 * 60 * 15);
+    }, 1000 * 60 * 45);
     setInterval(() => {
         setValorantEsport(bot)
     }, 1000 * 60 * 60 * 12);

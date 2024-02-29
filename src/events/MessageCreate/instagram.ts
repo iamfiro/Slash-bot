@@ -8,11 +8,7 @@ const event: EventListener<"messageCreate"> = {
 
         if(message.attachments.size === 0) message.delete();
 
-        message.react('👍');
-        message.react('❤');
-        message.react('😂');
-        message.react('😱');
-        message.react('😕');
+        message.react('<:comet_green:1209937852654157895>');
 
         const date = new Date();
 
