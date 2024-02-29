@@ -104,7 +104,7 @@ octabot.runRawJob((bot) => {
     })
     setInterval(() => {
         setValorantStatus(bot)
-    }, 1000 * 60 * 5);
+    }, 1000 * 60 * 15);
 });
 
 async function setValorantStatus(bot: Client<boolean>) {
@@ -142,7 +142,7 @@ async function setValorantStatus(bot: Client<boolean>) {
                         .setAuthor({ name: "VALORANT" })
                         .setTitle("KR 서버 상태")
                         .setColor(KRIncidentStatus && KRMaintenanceStatus ? 'Green' : 'Red')
-                        .setFields(KRFields.length === 0 ? { name: '❌ 이슈 없음', value: '현재 KR 서버에 발생한 문제가 없습니다.' } : KRFields)
+                        .setFields(KRFields.length === 0 ? { name: '이슈 없음', value: '현재 KR 서버에 발생한 문제가 없습니다.' } : KRFields)
                         .setFooter({ text: `${new Date(Date.now()).toLocaleTimeString()} 업데이트` })
             
                     EmbedContainer.push(Embed)
@@ -177,7 +177,7 @@ async function setValorantStatus(bot: Client<boolean>) {
                         .setAuthor({ name: "VALORANT" })
                         .setTitle("ASIA 서버 상태")
                         .setColor(APIncidentStatus && APMaintenanceStatus ? 'Green' : 'Red')
-                        .setFields(APFields.length === 0 ? { name: '❌ 이슈 없음', value: '현재 ASIA 서버에 발생한 문제가 없습니다.' } : APFields)
+                        .setFields(APFields.length === 0 ? { name: '이슈 없음', value: '현재 ASIA 서버에 발생한 문제가 없습니다.' } : APFields)
                         .setFooter({ text: `${new Date(Date.now()).toLocaleTimeString()} 업데이트` })
             
                     EmbedContainer.push(Embed)
@@ -212,7 +212,7 @@ async function setValorantStatus(bot: Client<boolean>) {
                         .setAuthor({ name: "VALORANT" })
                         .setTitle("EU 서버 상태")
                         .setColor(EUIncidentStatus && EUMaintenanceStatus ? 'Green' : 'Red')
-                        .setFields(EUFields.length === 0 ? { name: '❌ 이슈 없음', value: '현재 EU 서버에 발생한 문제가 없습니다.' } : EUFields)
+                        .setFields(EUFields.length === 0 ? { name: '이슈 없음', value: '현재 EU 서버에 발생한 문제가 없습니다.' } : EUFields)
                         .setFooter({ text: `${new Date(Date.now()).toLocaleTimeString()} 업데이트` })
             
                     EmbedContainer.push(Embed)
