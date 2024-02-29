@@ -261,10 +261,6 @@ async function setValorantEsport(bot: Client<boolean>) {
                                         .setThumbnail(data.match.teams[0].icon)
                                         .setFields([
                                             {
-                                                name: '우승 횟수',
-                                                value: `${data.match.teams[1].game_wins}회`,
-                                            },
-                                            {
                                                 name: '대회 전적',
                                                 value: `${data.match.teams[0].record.wins}승 ${data.match.teams[0].record.losses}패`,
                                             },
@@ -275,10 +271,6 @@ async function setValorantEsport(bot: Client<boolean>) {
                                         .setTitle(data.match.teams[1].name)
                                         .setThumbnail(data.match.teams[1].icon)
                                         .setFields([
-                                            {
-                                                name: '우승 횟수',
-                                                value: `${data.match.teams[1].game_wins}회`,
-                                            },
                                             {
                                                 name: '대회 전적',
                                                 value: `${data.match.teams[1].record.wins}승 ${data.match.teams[1].record.losses}패`,
